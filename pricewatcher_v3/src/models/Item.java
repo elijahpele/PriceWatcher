@@ -5,7 +5,6 @@ import controllers.PriceFinder;
 
 
 public class Item {
-	//hELLO
     private String name = "Beats Studio 3 Wireless Over-Ear Headphones";
     private String url = "https://www.amazon.com/Beats-Solo3-Wireless-Ear-Headphones/dp/B01LWWY3E2/ref=sr_1_1_sspa?s=aht&ie=UTF8&qid=1549336080&sr=1-1-spons&keywords=beats+wireless+headphones&psc=1";
     private String dateAdded = "06/01/2018";
