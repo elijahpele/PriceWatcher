@@ -17,7 +17,16 @@ import java.util.Scanner;
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 	private Item item = new Item();
-	private ItemManager itemM = new ItemManager();
+	private JList<Item> list; // Creating the Jlist
+
+	JButton add = new JButton("Add");
+	JButton cancel = new JButton("Cancel");
+
+	// Sets the buttons for the dialog
+	JButton add = new JButton("Add");
+	JButton cancel = new JButton("Cancel");
+
+	
 
 	/** Default dimension of the dialog. */
 	private final static Dimension DEFAULT_SIZE = new Dimension(406, 390);
