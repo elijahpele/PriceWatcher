@@ -18,10 +18,11 @@ import java.util.Scanner;
 public class Main extends JFrame {
 	private Item item = new Item();
 	private JList<Item> list; // Creating the Jlist
+	//Jtoolbar
 
 	JButton add = new JButton("Add");
 	JButton cancel = new JButton("Cancel");
-
+	
 	// Sets the buttons for the dialog
 	JButton add = new JButton("Add");
 	JButton cancel = new JButton("Cancel");
