@@ -1,7 +1,8 @@
 package views;
-
+import javax.swing.DefaultListModel;
 import models.Item;
-import controllers.ItemManager;
+import models.ItemViewCustomRender;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -16,8 +17,7 @@ import java.util.Scanner;
  */
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-	private Item item = new Item();
-	private ItemManager itemM = new ItemManager();
+	//private Item item = new Item();
 
 	/** Default dimension of the dialog. */
 	private final static Dimension DEFAULT_SIZE = new Dimension(406, 390);
@@ -27,6 +27,12 @@ public class Main extends JFrame {
 
 	/** Message bar to display various messages. */
 	private JLabel msgBar = new JLabel(" ");
+	
+	private	JList <Item> jlist;
+	
+	private JScrollPane scrollPane;
+	
+	private DefaultListModel<Item> listModel;
 
 	/** Create a new dialog. */
 	public Main() {
@@ -46,74 +52,33 @@ public class Main extends JFrame {
 		showMessage("Welcome!");
 	}
 
-	/**
-	 * Callback to be invoked when the refresh button is clicked. Find the current
-	 * price of the watched item and display it along with a percentage price
-	 * change.
-	 */
-	private void refreshButtonClicked(ActionEvent event) {
 
-		repaint();
-		String newPrice = Double.toString(item.checkLivePrice()); // --
-		showMessage("Current price: " + item.printCurrentPrice());
-	}
-
+  
 	/**
 	 * Callback to be invoked when the view-page icon is clicked. Launch a (default)
 	 * web browser by supplying the URL of the item.
 	 */
-	private void viewPageClicked() {
-		try {
-			Desktop desktop = Desktop.getDesktop();
-			URI oURL = new URI(item.getURL());
-			desktop.browse(oURL);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		showMessage("item.");
-	}
+	//private void viewPageClicked() {
+		//try {
+			//Desktop desktop = Desktop.getDesktop();
+			//URI oURL = new URI(item.getURL());
+			//desktop.browse(oURL);
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+		//}
+		//showMessage("item.");
+	//}
 
 	/** Configure UI. */
 	private void configureUI() {
 		setLayout(new BorderLayout());
-		JPanel control = makeControlPanel();
-		control.setBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16));
-		add(control, BorderLayout.NORTH);
-		JPanel board = new JPanel();
-		board.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 16, 0, 16),
-				BorderFactory.createLineBorder(Color.GRAY)));
-		board.setLayout(new GridLayout(1, 1));
-		itemView = new ItemView(item);
-		itemView.setClickListener(this::viewPageClicked);
-		board.add(itemView);
-		add(board, BorderLayout.CENTER);
+
+		createJList();
+		add(scrollPane, BorderLayout.CENTER);
 		msgBar.setBorder(BorderFactory.createEmptyBorder(10, 16, 10, 0));
 		add(msgBar, BorderLayout.SOUTH);
 	}
 
-	/** Create a control panel consisting of a refresh button. */
-	private JPanel makeControlPanel() {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-		JButton refreshButton = new JButton("Refresh");
-		refreshButton.setFocusPainted(false);
-		refreshButton.addActionListener(this::refreshButtonClicked);
-		panel.add(refreshButton);
-		// add image button
-		JButton addButton = new JButton("Add");
-		addButton.setFocusPainted(false);
-
-		panel.add(addButton); // add image button
-		// IMPLEMENT ACTIONLISTENER
-
-		// addButton.addActionListener(this::addButtonClicked);
-
-		JButton removeButton = new JButton("Remove");
-		removeButton.setFocusPainted(true);
-		panel.add(removeButton);
-		// add image button
-
-		return panel;
-	}
 
 	/** Show briefly the given string in the message bar. */
 	private void showMessage(String msg) {
@@ -127,6 +92,23 @@ public class Main extends JFrame {
 				SwingUtilities.invokeLater(() -> msgBar.setText(" "));
 			}
 		}).start();
+	}
+	
+
+	public void createJList() {
+	listModel = new DefaultListModel<>();
+	//Hard Coded Items to add to ListModel
+	Item item1 = new Item("Beats", "ebay.com", "01/02/0121",0, 0, 0, 0);
+	Item item2 = new Item("Laptop", "facebook.com", "06/01/1996", 0,0,0,0);
+
+	listModel.addElement(item1);
+	listModel.addElement(item2);
+	
+	
+	//Jlist initialized
+	jlist = new JList<>(listModel);
+	jlist.setCellRenderer(new ItemViewCustomRender());
+    scrollPane = (new JScrollPane(jlist));
 	}
 
 	public static void main(String[] args) {
