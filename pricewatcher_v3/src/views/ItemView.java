@@ -29,8 +29,8 @@ public class ItemView extends JPanel {
     private ClickListener listener;
 
     /** Create a new instance. */
-    public ItemView() {
-        //this.item = item;
+    public ItemView(Item item) {
+        this.item = item;
         setPreferredSize(new Dimension(150, 180));
         setBackground(Color.WHITE);
         addMouseListener(new MouseAdapter() {
@@ -58,10 +58,13 @@ public class ItemView extends JPanel {
         Font boldFont = new Font("Helevetica", Font.BOLD, 12);
         Font regFont = new Font("Helevetica", Font.ITALIC, 12);
 
-        //g.drawImage(getImage("internet.png"), 137, 19, this);
-        //y += 130;
-        //y+=100;
-        g.setFont(boldFont);   
+        g.drawImage(getImage("internet.png"), 137, 19, this);
+        y += 130;
+        g.setFont(boldFont);
+        
+        
+        
+        
         
         g.drawString("Name:   ", x, y);
         y += 20;
@@ -108,8 +111,5 @@ public class ItemView extends JPanel {
             e.printStackTrace();
         }
         return null;
-    }
-    public void setItem(Item item) {
-    	this.item = item;
     }
 }

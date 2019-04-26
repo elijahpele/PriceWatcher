@@ -5,24 +5,13 @@ import controllers.PriceFinder;
 
 
 public class Item {
-    private String name; // = "Beats Studio 3 Wireless Over-Ear Headphones";
-    private String url;// = "https://www.amazon.com/Beats-Solo3-Wireless-Ear-Headphones/dp/B01LWWY3E2/ref=sr_1_1_sspa?s=aht&ie=UTF8&qid=1549336080&sr=1-1-spons&keywords=beats+wireless+headphones&psc=1";
-    private String dateAdded;// = "06/01/2018";
-    private double priceChange;// = 0;
-    private double startingPrice;// = 279.95;
+    private String name = "Beats Studio 3 Wireless Over-Ear Headphones";
+    private String url = "https://www.amazon.com/Beats-Solo3-Wireless-Ear-Headphones/dp/B01LWWY3E2/ref=sr_1_1_sspa?s=aht&ie=UTF8&qid=1549336080&sr=1-1-spons&keywords=beats+wireless+headphones&psc=1";
+    private String dateAdded = "06/01/2018";
+    private double priceChange = 0;
+    private double startingPrice = 279.95;
     private double previousPrice;
-    private double currentPrice; // = 279.95;
-    
-    public Item() {};
-    
-    public Item(String name, String url, String dateAdded, double priceChange, double startingPrice, double previousPrice, double currentPrice) {
-    	this.name = name;
-    	this.url = url;
-    	this.dateAdded = dateAdded;
-    	this.priceChange = priceChange;
-    	this.startingPrice = startingPrice;
-    	this.currentPrice = currentPrice;
-    }
+    private double currentPrice = 279.95;
 
     public String getName(){
         return this.name;
@@ -32,9 +21,7 @@ public class Item {
     }
 
     public String printURL(){
-    	if(url.length() >= 40) {
-    		String url = this.url.substring(0,40)+"...";
-    	}
+        String url = this.url.substring(0,40)+"...";
         return url;
     }
 
