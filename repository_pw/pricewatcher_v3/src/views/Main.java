@@ -184,25 +184,48 @@ public class Main extends JFrame {
     	return tBar;
     			    }
     
-	    
-    private void addButtonClicked(ActionEvent event) {
-    	String itemName;
-    	String itemURL;
-    	
-    	itemName = JOptionPane.showInputDialog("Enter the item's name.");
-    	itemURL = JOptionPane.showInputDialog("Enter the item's URL.");
-        Item item3 = new Item(itemName, itemURL);
-        listModel.addElement(item3);
-    }
-		    
-    private void refreshButtonClicked(ActionEvent event) {
-        for (int i = 0; i < listModel.getSize(); i++) {
-            listModel.get(i).checkLivePrice();
-            repaint();
-            showMessage("Refreshed!");
+	private void addButtonClicked(ActionEvent event) {
+        JTextField name = new JTextField();
+        JTextField url = new JTextField();
+        JTextField price = new JTextField();
+        Object[] message = {
+            "Product Name:", name,
+            "Product URL:", url,
+            "Product Price:", price
+        };
+        int option = JOptionPane.showConfirmDialog(this, message, "Add", JOptionPane.OK_CANCEL_OPTION, 0);
+        //OK
+        if (option == 0) {
+            try {
+                Item generatedProduct = createProduct(name.getText(),url.getText(), Double.parseDouble(price.getText()));
+                listModel.addElement(generatedProduct);
+                showMessage("Product Successfully Added");
+            } catch (NumberFormatException e) {
+                showMessage("Please re-enter correct information.");
+            } catch (IllegalArgumentException e) {
+                showMessage("Please re-enter correct information.");
+            }
+        }
+        
+        if (option == 2) {
+
+        }
+      
+        if (option == -1) {
+
         }
     }
+	
+    protected Item createProduct(String itemURL, String itemName, double itemPrice) {
+        return new Item(itemName,itemURL, getCurrentDate(), 0.0, itemPrice, itemPrice, itemPrice);
+    }
     
+    protected String getCurrentDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = new Date(System.currentTimeMillis());
+        return formatter.format(date);
+    }
+
     private void singleItemRefresh(ActionEvent event) {
     	listModel.get(jlist.getSelectedIndex()).checkLivePrice();
     	showMessage("Item updated!");
